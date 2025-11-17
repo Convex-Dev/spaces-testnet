@@ -1,6 +1,6 @@
 ---
 title: Convex Testnet
-emoji: ⌬
+emoji: 🌍
 colorFrom: indigo
 colorTo: blue
 sdk: docker
