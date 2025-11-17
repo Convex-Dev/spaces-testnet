@@ -1,11 +1,12 @@
 ---
 title: Convex Testnet
-emoji: 🏃
+emoji: ⌬
 colorFrom: indigo
-colorTo: yellow
+colorTo: blue
 sdk: docker
 pinned: false
 license: other
+suggested_hardware: cpu-basic
 short_description: Public Convex testnet instance
 ---
 

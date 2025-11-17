@@ -16,7 +16,7 @@ WORKDIR /convex
 
 COPY --from=build /testnet/convex-integration/target/convex.jar /convex/convex.jar
 
-EXPOSE 7680
+EXPOSE 7860
 
 ENTRYPOINT ["java", "-jar", "/convex/convex.jar"]
-CMD ["local", "start", "--api-port=7680"]
+CMD ["local", "start", "--api-port=7860"]
