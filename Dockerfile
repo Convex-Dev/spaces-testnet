@@ -1,7 +1,7 @@
 # Docker for Convex 
 
 ##################################
-# Build stage
+# Clone stage
 
 # Base on Eclipse temurin JDK, noble Ubuntu for git etc
 FROM maven:3-eclipse-temurin-25-noble AS clone
@@ -9,13 +9,17 @@ FROM maven:3-eclipse-temurin-25-noble AS clone
 WORKDIR /testnet
 RUN git clone --depth 1 --branch develop https://github.com/Convex-Dev/convex.git .
 
+##################################
+# Build stage
+
 FROM maven:eclipse-temurin AS build
 
 COPY --from=clone /testnet /testnet
 
 
 WORKDIR /testnet
-RUN mvn clean install
+RUN --mount=type=cache,target=~/.m2 \
+    mvn clean install
 
 ##################################
 # Run stage
