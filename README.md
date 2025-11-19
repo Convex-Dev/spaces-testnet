@@ -7,7 +7,7 @@ sdk: docker
 pinned: false
 license: other
 suggested_hardware: cpu-basic
-short_description: Convex testnet, for agentic economic systems. Will refresh on occasion. See https://convex.world
+short_description: Convex testnet for agentic economic systems. https://convex.world
 ---
 
 This repository runs a **Convex Testnet** as a a Hugging Face space for easy experimentation by AI
