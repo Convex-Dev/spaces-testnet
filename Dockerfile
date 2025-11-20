@@ -3,7 +3,7 @@
 ##################################
 # Clone stage
 
-# Base on Eclipse temurin JDK, noble Ubuntu for git etc
+# Based on Eclipse temurin JDK, noble Ubuntu for git etc
 FROM maven:3-eclipse-temurin-25-noble AS clone
 
 WORKDIR /testnet
