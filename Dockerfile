@@ -5,6 +5,9 @@
 
 FROM maven:latest AS clone
 
+# Cache-bust: change this value to force a fresh clone on rebuild
+ARG CACHEBUST=1
+
 WORKDIR /testnet
 RUN git clone --depth 1 --branch develop https://github.com/Convex-Dev/convex.git .
 
