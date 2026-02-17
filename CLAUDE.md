@@ -27,7 +27,25 @@ Three-stage Docker build:
 - **origin** — HuggingFace (`https://huggingface.co/spaces/mikera1337/convex-testnet`)
 - **github** — GitHub mirror (`https://github.com/Convex-Dev/spaces-testnet`)
 
-Pushing to `origin` triggers a HuggingFace Space rebuild automatically.
+Pushing to `origin main` triggers a HuggingFace Space rebuild automatically.
+
+## Deploying
+
+The testnet Docker image clones `convex` `develop` from GitHub at build time. To deploy new changes:
+
+1. **Push Convex changes** to `origin/develop` in the `convex` repo
+2. **Trigger a rebuild** by pushing to `origin main` in this repo (use `--allow-empty` if no Dockerfile changes):
+   ```bash
+   cd convex-testnet
+   git commit --allow-empty -m "Rebuild: <description of changes>"
+   git push origin main
+   ```
+3. **Also push to GitHub mirror**: `git push github main`
+4. **Monitor the build** — check status via `https://huggingface.co/api/spaces/mikera1337/convex-testnet`
+   - `BUILDING` → Docker image building (clone + Maven, typically 3-5 minutes)
+   - `RUNNING_APP_STARTING` → container started, app initialising
+   - `RUNNING` → live and serving requests
+5. **Verify** — test the live endpoint: query `https://mikera1337-convex-testnet.hf.space/mcp` or `/.well-known/mcp`
 
 ## Building Locally
 
