@@ -10,23 +10,22 @@ suggested_hardware: cpu-basic
 short_description: Convex testnet for agentic economic systems (convex.world)
 ---
 
-This repository runs a **Convex Testnet** as a a Hugging Face space for easy experimentation by AI
-innovaters and agentic AI usage.
+This repository runs a **Convex Testnet** as a Hugging Face Space for easy experimentation by AI
+innovators and agentic AI usage.
 
-It includes a working Convex MCP Server
-
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+It includes a working **Convex MCP Server** at the `/mcp` endpoint, ready for use by AI agents
+and MCP-compatible clients. Server capabilities are discoverable at `/.well-known/mcp`.
 
 Convex documentation available at: [Convex Docs](https://docs.convex.world)
 
-# Docker build
+## Docker build
 
 ```
 docker build -t convexlive/convex-testnet:latest .
 ```
 
-Or if need to clear cache for the Covia build:
+To force a fresh clone and build:
 
 ```
-docker build --no-cache-filter build -t convexlive/convex-testnet:latest .
+docker build --no-cache -t convexlive/convex-testnet:latest .
 ```

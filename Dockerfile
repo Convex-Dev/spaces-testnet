@@ -1,10 +1,9 @@
-# Docker for Convex 
+# Docker for Convex Testnet
 
 ##################################
 # Clone stage
 
-# Based on Eclipse temurin JDK, noble Ubuntu for git etc
-FROM maven:3-eclipse-temurin-25-noble AS clone
+FROM maven:latest AS clone
 
 WORKDIR /testnet
 RUN git clone --depth 1 --branch develop https://github.com/Convex-Dev/convex.git .
@@ -12,26 +11,27 @@ RUN git clone --depth 1 --branch develop https://github.com/Convex-Dev/convex.gi
 ##################################
 # Build stage
 
-FROM maven:eclipse-temurin AS build
+FROM maven:latest AS build
 
 COPY --from=clone /testnet /testnet
 
-
 WORKDIR /testnet
-RUN --mount=type=cache,target=~/.m2 \
-    mvn clean install
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn clean install -DskipTests
 
 ##################################
 # Run stage
 
-# We want a 25 JRE for runtime, slim image with alpine
-FROM eclipse-temurin:25-jre-alpine AS run
+FROM eclipse-temurin:latest AS run
 
 WORKDIR /convex
 
 COPY --from=build /testnet/convex-integration/target/convex.jar /convex/convex.jar
 
 EXPOSE 7860
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD java -jar /convex/convex.jar status --api-port=7860 || exit 1
 
 ENTRYPOINT ["java", "-jar", "/convex/convex.jar"]
 CMD ["local", "start", "--api-port=7860"]
